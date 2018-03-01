@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>PHOTO BUCKET</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="background">
+
+        <div class="video">
+            <iframe src="https://www.youtube.com/embed/9ZfN87gSjvI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=20&amp;autoplay=1" frameborder="0"
+                allowfullscreen></iframe>
+        </div>
+
+        <form action="login_act.php" method="post" name="titleSubmit">
+            <div class="title-wrapper">
+                <img class="logo" src="img/IMG_1028.png" alt="">
+                <p>
+                    <a href="registration.html" id="link-regist">新規登録はこちら</a>
+                </p>
+                <div class="input-wrapper">
+                    <input type="text" id="titleField" class="title-field" name="title" placeholder="Titleを入力してください">
+                    <input type="password" id="pass" name="password" class="title-field" placeholder="パスワードを入力してください">
+                </div>
+                <button class="start-button" id="startButton" type="button">
+                    START
+                </button>
+            </div>
+        </form>
+
+    </div>
+
+
+
+
+
+    <script>
+        //ムービー全画面スクリプト（PC用）
+        //(1)動画の画角比率を設定します。4:3の場合はここを「4/3」に変更
+        var movieRatio = 16 / 9;
+        //(2)画像のリサイズ関数「movieAdjust()」を作成
+        function movieAdjust() {
+            var adjustWidth = $(window).width();
+            var adjustHeight = $(window).height();
+            if (adjustHeight > adjustWidth / movieRatio) {
+                adjustWidth = adjustHeight * movieRatio;
+            }
+            $('iframe').css({ width: (adjustWidth), height: (adjustWidth / movieRatio) });
+        }
+        //(3)画面リサイズ時と画面ロード時に関数movieAdjust()を実行
+        $(window).on('load resize', function () {
+            movieAdjust();
+        });
+
+        //----------------------------------------------------------------------------------
+        // titleタップ時の動作
+        //----------------------------------------------------------------------------------
+
+
+        // 1.Save クリックイベント 
+        $("#startButton").on("click", function () {
+            if ($("#title").val() != "") {
+                const value = $("#title").val();
+                localStorage.setItem("title", value);
+                //submit()でフォームの内容を送信
+                document.titleSubmit.submit();
+            } else if ($("#title").val() == "") {
+                alert("合言葉を入力してください");
+            }
+        });
+
+
+    </script>
+
+</body>
+
+</html>
